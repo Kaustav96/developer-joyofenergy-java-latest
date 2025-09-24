@@ -9,8 +9,25 @@ import java.util.List;
 import java.util.Random;
 import uk.tw.energy.domain.ElectricityReading;
 
+/**
+ * Generator class for creating simulated electricity readings.
+ * <p>
+ * SOLID Principles:
+ * - Single Responsibility Principle: Class has single responsibility of generating electricity readings
+ * - Open/Closed Principle: Class is open for extension but closed for modification
+ * <p>
+ * Design Patterns:
+ * - Factory Pattern: Creates and returns a collection of ElectricityReading objects
+ */
 public class ElectricityReadingsGenerator {
 
+    /**
+     * Generates a specified number of electricity readings with random values.
+     * Readings are created with timestamps in descending order and random gaussian values.
+     *
+     * @param number The number of readings to generate
+     * @return List of ElectricityReading objects sorted by timestamp
+     */
     public List<ElectricityReading> generate(int number) {
         List<ElectricityReading> readings = new ArrayList<>();
         Instant now = Instant.now();

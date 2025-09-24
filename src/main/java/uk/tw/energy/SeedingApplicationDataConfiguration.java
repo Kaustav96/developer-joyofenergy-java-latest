@@ -17,6 +17,19 @@ import uk.tw.energy.domain.ElectricityReading;
 import uk.tw.energy.domain.PricePlan;
 import uk.tw.energy.generator.ElectricityReadingsGenerator;
 
+/**
+ * Configuration class responsible for seeding initial application data.
+ * <p>
+ * Design Patterns:
+ * - Singleton Pattern: Spring ensures single instance of this configuration
+ * - Factory Pattern: Creates and configures beans for application use
+ * <p>
+ * SOLID Principles:
+ * - Single Responsibility: Class focuses solely on application data initialization
+ * - Open/Closed: New price plans can be added without modifying existing code
+ * - Interface Segregation: Beans are exposed through specific interfaces
+ * - Dependency Inversion: Dependencies are injected through Spring container
+ */
 @Configuration
 public class SeedingApplicationDataConfiguration {
 
@@ -24,6 +37,12 @@ public class SeedingApplicationDataConfiguration {
     private static final String RENEWABLES_PRICE_PLAN_ID = "price-plan-1";
     private static final String STANDARD_PRICE_PLAN_ID = "price-plan-2";
 
+    /**
+     * Creates and configures the initial set of price plans available in the system.
+     * Demonstrates Factory pattern by producing PricePlan objects with different configurations.
+     *
+     * @return List of preconfigured PricePlan objects
+     */
     @Bean
     public List<PricePlan> pricePlans() {
         final List<PricePlan> pricePlans = new ArrayList<>();
@@ -33,6 +52,12 @@ public class SeedingApplicationDataConfiguration {
         return pricePlans;
     }
 
+    /**
+     * Generates initial electricity readings for each smart meter.
+     * Uses ElectricityReadingsGenerator to create sample data.
+     *
+     * @return Map of smart meter IDs to their respective electricity readings
+     */
     @Bean
     public Map<String, List<ElectricityReading>> perMeterElectricityReadings() {
         final Map<String, List<ElectricityReading>> readings = new HashMap<>();
@@ -43,6 +68,12 @@ public class SeedingApplicationDataConfiguration {
         return readings;
     }
 
+    /**
+     * Creates the initial mapping between smart meters and their associated price plans.
+     * Demonstrates the mapping relationship between meters and plans.
+     *
+     * @return Map of smart meter IDs to their assigned price plan IDs
+     */
     @Bean
     public Map<String, String> smartMeterToPricePlanAccounts() {
         final Map<String, String> smartMeterToPricePlanAccounts = new HashMap<>();
@@ -54,6 +85,13 @@ public class SeedingApplicationDataConfiguration {
         return smartMeterToPricePlanAccounts;
     }
 
+    /**
+     * Configures the primary ObjectMapper bean for JSON serialization/deserialization.
+     * Customizes the mapper to handle date formatting.
+     *
+     * @param builder Jackson2ObjectMapperBuilder instance
+     * @return Configured ObjectMapper instance
+     */
     @Bean
     @Primary
     public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
